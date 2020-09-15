@@ -1,28 +1,34 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+   <router-view></router-view>
   </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+// import Homepage from './components/Homepage.vue'
+import router from "@/router";
+import 'metro4'
+import store from "./store"
 export default {
+  router, store,
   name: 'App',
   components: {
-    HelloWorld
-  }
+    // Homepage,
+  },
+
 }
 </script>
-
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  /*text-align: center;*/
+  /*margin-top: 60px;*/
+  background: #B4C6C6;
+    min-width:1080px;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  position: absolute;
 }
+
 </style>
