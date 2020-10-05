@@ -67,7 +67,7 @@
         height: 2rem;
     }
     .operationpanel{
-        margin-right: 30px;
+        margin-right: 50px;
     }
     a {
         text-decoration: none;

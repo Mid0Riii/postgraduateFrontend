@@ -1,6 +1,6 @@
 <template>
 <div>
-    <el-tooltip  effect="dark" content="用户信息" placement="top">
+    <el-tooltip  effect="dark" content="" placement="top">
         <span>贫困生</span>
     </el-tooltip>
 

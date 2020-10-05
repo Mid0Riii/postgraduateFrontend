@@ -7,4 +7,10 @@ export default {
     getAnnouncement(){
         return service.get("comm/ann")
     },
+    getAddressBook(){
+        return service.get("basic/addressbook")
+    },
+    getScore(){
+        return service.get("semester/score")
+    }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class=" cell-3 panel-body">
+    <div class="panel-body">
         <div class="tiles-group tiles-grid size-2 operation-panel">
             <div data-role="tile" style="background-color: #1B6583" data-size="wide" v-on:click="push_announcement">
                 <span class="mif-notification icon"></span>
@@ -9,7 +9,7 @@
                 <span class="mif-contacts-dialer icon"></span>
                 <span class="branding-bar">通讯录</span>
             </div>
-            <el-tooltip class="item" effect="dark" content="用户信息" placement="top-start">
+            <el-tooltip class="item" effect="dark" content="个人信息" placement="top-start">
                 <div data-role="tile" data-size="small" style="background-color: #016974">
                     <!--用户信息-->
                     <span class="mif-user icon"></span>
