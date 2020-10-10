@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div class="homepage gird ">
+        <div class="homepage">
             <router-link to="/" exact>
                 <img id="titleimg" src="../assets/NCUlogo.png">
                 <span id="title">南昌大学研究生管理系统</span>
             </router-link>
             <div class="row main-contain">
                 <div class="operationpanel">
-                <OperationPanel></OperationPanel>
+                    <OperationPanel></OperationPanel>
                 </div>
-                <div class="info-panel" style="background-color: #F4F4F4">
+                <div class="info-panel" style="background-color: #FFFFFF">
                     <transition name="fade" mode="out-in">
                         <router-view></router-view>
                     </transition>
@@ -24,13 +24,14 @@
 
     export default {
         name: "homepage",
-        components: {OperationPanel, },
+        components: {
+            OperationPanel,
+        },
         data() {
-            return {
-            }
+            return {}
         },
         created() {
-            if(!this.$store.state.isLogin){
+            if (!this.$store.state.isLogin) {
                 this.$router.push('/login')
             }
         },
@@ -40,8 +41,7 @@
 
 <style scoped>
     .homepage {
-        margin: 100px;
-        background-color: #f4f4f4;
+        background-color: #FFFFFF;
         padding-left: 100px;
         padding-right: 100px;
         padding-top: 3rem;
@@ -66,14 +66,17 @@
         width: 2rem;
         height: 2rem;
     }
-    .operationpanel{
+
+    .operationpanel {
         margin-right: 50px;
     }
+
     a {
         text-decoration: none;
         color: black;
     }
-    .info-panel{
+
+    .info-panel {
         width: 1100px;
     }
 
@@ -86,15 +89,4 @@
         opacity: 0;
     }
 
-    /* 想做个登录毛玻璃特效，如何解决安全问题*/
-    .mask {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.2);
-        z-index: 999;
-        filter: blur(10px);
-    }
 </style>

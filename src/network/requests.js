@@ -23,7 +23,7 @@ service.interceptors.response.use(  //响应拦截器
         return response;
     },
     error => {
-        // console.log(error.response);
+        console.log(error.response);
         if (error.response) {
             // switch (error.response.status) {
             //     case 401:

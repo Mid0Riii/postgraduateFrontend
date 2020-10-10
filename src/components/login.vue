@@ -1,64 +1,39 @@
 <template>
-    <div class="container-fluid container login-contain" id="login-box"
-         v-bind:class="{'right-panel-active':!loginView}">
-        <div class="form-container sign-up-container">
-            <form>
-                <h1>注册</h1>
-                <div class="txtb">
-                    <input type="text" placeholder="学号" v-on:focus="getFocus" v-on:blur="removeFocus"
-                           v-model="signupusername">
-                </div>
-                <div class="txtb">
-                    <input type="password" placeholder="密码" v-on:focus="getFocus" v-on:blur="removeFocus"
-                           v-model="signuppassword">
-                </div>
-                <div class="txtb">
-                    <input type="password" placeholder="确认密码" v-on:focus="getFocus" v-on:blur="removeFocus">
-                </div>
-                <button>注册</button>
-            </form>
-        </div>
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>登录</h1>
-                <div class="txtb">
-                    <input type="text" placeholder="学号" v-on:focus="getFocus" v-on:blur="removeFocus"
-                           v-model="loginusername">
-                </div>
-                <div class="txtb">
-                    <input type="password" placeholder="密码" v-on:focus="getFocus" v-on:blur="removeFocus"
-                           v-model="loginpassword">
-                </div>
-                <a href="#">忘记密码？</a>
-                <button v-on:click="login">登录</button>
-            </form>
-        </div>
-
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>已有账号？</h1>
-                    <p>请使用您的账号进行登录</p>
-                    <button class="ghost" id="signIn" v-on:click="changeLogin">登录</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>没有账号?</h1>
-                    <p>立即注册加入我们，和我们一起开始旅程吧</p>
-                    <button class="ghost" id="signUp" v-on:click="changeSignup">注册</button>
+    <el-row>
+        <el-col
+                :xs="{span:20,offset:2}">
+            <div class="login-contain container" id="login-box"
+                 v-bind:class="{'right-panel-active':!loginView}">
+                <div class="form-container sign-in-container">
+                    <form action="#">
+                        <h1 style="font-size: 2rem">研究生信息平台</h1>
+                        <div class="txtb">
+                            <input type="text" placeholder="学号" v-on:focus="getFocus" v-on:blur="removeFocus"
+                                   v-model="loginusername">
+                        </div>
+                        <div class="txtb">
+                            <input type="password" placeholder="密码" v-on:focus="getFocus" v-on:blur="removeFocus"
+                                   v-model="loginpassword">
+                        </div>
+                        <button style="margin-top: 30px" v-on:click="login">登录</button>
+                    </form>
                 </div>
             </div>
-
-        </div>
-    </div>
+        </el-col>
+    </el-row>
 
 </template>
 
 <script>
     import api from '../network/api';
-    import {Message} from 'element-ui';
+    import {Message,Col,Row} from 'element-ui';
 
     export default {
         name: "login",
+        components:{
+            'el-col':Col,
+            'el-row':Row
+        },
         methods: {
             changeLogin: function () {
                 this.loginView = true
@@ -75,21 +50,21 @@
                 }
             },
             login: function () {
-                console.log("login")
                 api.login({
                     "username": this.loginusername,
                     "password": this.loginpassword,
-                })
-                    .then(res => {
-                        console.log(res);
-                        this.$store.state.isLogin = true;
-                        this.$store.state.token = res.data.data.token;
-                        this.$router.push('/');
-                        Message.success(res.data.message);
-                        console.log(this.$store.state.token);
+                }).then(res => {
+                    let data = res.data.data;
+                    this.$store.state.isLogin = true;
+                    this.$store.state.token = data.token;
+                    this.$router.push('/');
+                    Message.success(res.data.message);
+                    api.getStudent().then(res =>{
+                        this.$store.state.student = res.data.data[0];
                     })
+                })
                     .catch(error => {
-                        Message.error(error.message + ":" + error.data.detail);
+                        Message.error(error);
                     });
             }
         },
@@ -134,7 +109,6 @@
 
     h1 {
         font-weight: bold;
-        margin: 0;
     }
 
     p {
@@ -161,24 +135,19 @@
         box-shadow: 0 14px 28px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .22);
         position: relative;
         overflow: hidden;
-        width: 768px;
+        width: 375px;
         max-width: 100%;
-        min-height: 480px;
-
+        min-height: 360px;
     }
 
     .form-container form {
         background: #fff;
         display: flex;
         flex-direction: column;
-        padding: 0 50px;
+        padding: 0 25px;
         height: 100%;
         justify-content: center;
         text-align: center;
-    }
-
-    .social-container {
-        margin: 20px 0;
     }
 
     .social-container a {
@@ -198,9 +167,9 @@
     }
 
     .txtb {
+        margin-top: 2rem;
         border-bottom: 2px solid #adadad;
         position: relative;
-        margin: 10px 0;
     }
 
     .txtb input {
@@ -291,7 +260,7 @@
 
     .sign-in-container {
         left: 0;
-        width: 50%;
+        width: 100%;
         z-index: 2;
     }
 
@@ -299,63 +268,8 @@
         position: relative;
         left: 100px;
     }
-
-    .sign-up-container {
-        left: 0;
-        width: 50%;
-        z-index: 1;
-        opacity: 0;
-    }
-
     .sign-up-container button {
         margin-top: 20px;
-    }
-
-    .overlay-container {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 50%;
-        height: 100%;
-        overflow: hidden;
-        transition: transform .6s ease-in-out;
-        z-index: 100;
-    }
-
-    .overlay {
-        background-image: linear-gradient(120deg, #3498db, #8e44ad);
-        color: #fff;
-        position: relative;
-        left: -100%;
-        height: 100%;
-        width: 200%;
-        transform: translateY(0);
-        transition: transform .6s ease-in-out;
-    }
-
-    .overlay-panel {
-        position: absolute;
-        top: 0;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 0 40px;
-        height: 100%;
-        width: 50%;
-        text-align: center;
-        transform: translateY(0);
-        transition: transform .6s ease-in-out;
-    }
-
-    .overlay-right {
-        right: 0;
-        transform: translateY(0);
-
-    }
-
-    .overlay-left {
-        transform: translateY(-20%);
     }
 
     .container.right-panel-active .sign-in-container {

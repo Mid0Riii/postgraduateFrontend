@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-tabs v-model="editableTabsValue" type="border-card" closable @edit="handleTabsEdit" style="height: 640px">
+        <el-tabs v-model="editableTabsValue" type="border-card" closable @edit="handleTabsEdit">
             <el-tab-pane
                     :key="item.name"
                     v-for="(item) in editableTabs"
@@ -25,8 +25,7 @@
                 <el-table
                         :data="announcements"
                         style="width: 100%;"
-                        height="500"
-                        v-if="editableTabsValue==='index'"
+                        v-if="editableTabsValue==='index' && announcements!==[]"
                         :row-class-name="tableRowClassName"
                 >
                     <el-table-column
@@ -85,7 +84,6 @@
                 urgency: {
                     "1": "置顶",
                     "2": "紧急",
-
                     "3": "一般",
 
                 },
@@ -119,7 +117,7 @@
         created() {
             api.getAnnouncement()
                 .then(res => {
-                    this.announcements = res.data
+                    this.announcements = res.data.data;
                 })
                 .catch(error => {
                     Message.error(error)

@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import VueRouter from "vue-router";
+
+Vue.use(VueRouter);
+//cv以下代码解决路由地址重复的报错问题(一劳永逸)
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
 };
-
-Vue.use(VueRouter);
 const routes=[
     {
         path:'/',
@@ -29,8 +30,8 @@ const routes=[
                 }
             },
             {
-                path: 'user',
-                name: 'user',
+                path: 'info',
+                name: 'info',
                 components: {
                     default: () => import(/* webpackChunkName: "user" */ '../components/MyInfo.vue')
                 }
@@ -60,14 +61,21 @@ const routes=[
                 path: 'addressbook',
                 name: 'addressbook',
                 components: {
-                    default: () => import(/* webpackChunkName: "Departure" */ '../components/AddressBook.vue')
+                    default: () => import(/* webpackChunkName: "addressbook" */ '../components/AddressBook.vue')
                 }
             },
             {
                 path: 'poverty',
                 name: 'poverty',
                 components: {
-                    default: () => import(/* webpackChunkName: "Departure" */ '../components/Poverty.vue')
+                    default: () => import(/* webpackChunkName: "poverty" */ '../components/Poverty.vue')
+                }
+            },
+            {
+                path: 'pwd',
+                name: 'pwd',
+                components: {
+                    default: () => import(/* webpackChunkName: "pwd" */ '../components/ChangePassword.vue')
                 }
             },
         ]

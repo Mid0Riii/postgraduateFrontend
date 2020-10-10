@@ -6,8 +6,16 @@ Vue.use(Vuex);
 const state = {
     isLogin:false,
     token:"",
-
+    student:{
+        id:"",
+        stu_id:"",
+        stu_usr:"",
+        stu_name:"",
+        stu_college:"",
+        stu_major:"",
+    }
 };
+
 
 const store = new Vuex.Store({
     state: state,
@@ -16,6 +24,9 @@ const store = new Vuex.Store({
     getters: {
         token: state => {
             return state.token
+        },
+        student: state =>{
+            return state.student
         }
     },
     plugins: [createPersistedState()]

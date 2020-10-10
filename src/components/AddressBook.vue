@@ -7,8 +7,14 @@
                       :header-cell-style="{fontWeight:900,fontSize:'14px',color:'black'}">
                 <el-table-column
                         type="index"
-                        width="120"
+                        width="70"
                         label="#"
+                >
+                </el-table-column>
+                <el-table-column
+                        prop="stu_class"
+                        width="120"
+                        label="班级"
                 >
                 </el-table-column>
                 <el-table-column
@@ -19,7 +25,7 @@
                 <el-table-column
                         prop="stu_name"
                         label="姓名"
-                        width="200">
+                        width="180">
                 </el-table-column>
                 <el-table-column
                         prop="stu_tel"
@@ -34,7 +40,6 @@
             </el-table>
         </el-tab-pane>
     </el-tabs>
-
 </template>
 
 <script>
@@ -57,6 +62,7 @@
                         "stu_name": "",
                         "stu_tel": "",
                         "stu_birth": "",
+                        "stu_class":"",
                     }
                 ],
             }
@@ -64,7 +70,7 @@
         created() {
             api.getAddressBook()
                 .then(res => {
-                    this.addressbook = res.data;
+                    this.addressbook = res.data.data;
                 })
                 .catch(error => {
                     Message.error(error)
