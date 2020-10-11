@@ -4,6 +4,9 @@ export default {
     login(data){
         return service.post('login/',data)
     },
+    setDeparture(data){
+        return service.post('semester/departure/', data)
+    },
     getAnnouncement(){
         return service.get("comm/ann")
     },
@@ -34,13 +37,16 @@ export default {
     deleteScholarshipApply(id){
         return service.delete("scholarship/apply/"+id)
     },
-    getStudent(){
+    getStudent() {
         return service.get("basic/info")
     },
-    getPoverty(){
-        return service.get("basic/poverty")
+    getSemester(){
+        return service.get("semester/list")
     },
-    updatePoverty(id,data){
-        return service.patch("basic/poverty/"+id+'/',data)
-    }
+    getDeparture(){
+        return service.get("semester/departure")
+    },
+    getAuth(){
+        return service.get("auth")
+    },
 }
