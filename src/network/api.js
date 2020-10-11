@@ -40,7 +40,10 @@ export default {
     getStudent() {
         return service.get("basic/info")
     },
-    getSemester(){
+    getPoverty() {
+        return service.get("basic/poverty")
+    },
+        getSemester(){
         return service.get("semester/list")
     },
     getDeparture(){
@@ -48,5 +51,8 @@ export default {
     },
     getAuth(){
         return service.get("auth")
+    },
+    updatePoverty(id,data){
+        return service.patch("basic/poverty/"+id+'/',data)
     },
 }
