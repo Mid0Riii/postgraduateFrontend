@@ -210,35 +210,9 @@
 </template>
 
 <script>
-    import {
-        Table,
-        TableColumn,
-        Message,
-        TabPane,
-        Tabs,
-        Button,
-        Drawer,
-        Form,
-        FormItem,
-        Input,
-        InputNumber,
-    } from 'element-ui'
     import api from "../network/api"
-
     export default {
         name: "ScholarShip",
-        components: {
-            'el-table': Table,
-            'el-table-column': TableColumn,
-            'el-tabs': Tabs,
-            'el-tab-pane': TabPane,
-            'el-button': Button,
-            'el-drawer': Drawer,
-            'el-form': Form,
-            'el-form-item': FormItem,
-            'el-input': Input,
-            'el-input-number': InputNumber,
-        },
         data() {
             return {
                 scholarships: [
@@ -299,14 +273,14 @@
                     this.scholarships = res.data.data;
                 })
                 .catch(error => {
-                    Message.error(error)
+                    this.$message.error(error)
                 });
             api.getScholarshipApply()
                 .then(res => {
                     this.applications = res.data.data;
                 })
                 .catch(error => {
-                    Message.error(error)
+                    this.$message.error(error)
                 })
         },
         methods: {
@@ -322,7 +296,7 @@
                         this.updateForm = res.data.data;
                     })
                     .catch(err => {
-                        Message.error(err)
+                        this.$message.error(err)
                     });
                 this.updateForm.app_stu = this.$store.state.student.stu_name;
                 this.updateView = true;
@@ -348,7 +322,7 @@
                 this.form.app_stu = this.$store.state.student.id;
                 api.postScholarshipApply(this.form)
                     .then(res => {
-                        Message.success(res.data.message);
+                        this.$message.success(res.data.message);
                         this.applyView = false;
                         this.form = {};
                         api.getScholarshipApply()
@@ -356,12 +330,12 @@
                                 this.applications = res.data.data;
                             })
                             .catch(error => {
-                                Message.error(error)
+                                this.$message.error(error)
                             });
                         this.tabValue="apply"
                     })
                     .catch(error => {
-                        Message.error(error)
+                        this.$message.error(error)
                     })
 
             },
@@ -369,7 +343,7 @@
                 this.form.app_stu = this.$store.state.student.id;
                 api.updateScholarchipApply(this.updateForm.id,this.updateForm)
                     .then(res=>{
-                        Message.success(res.data.message);
+                        this.$message.success(res.data.message);
                         this.updateView=false;
                         this.updateForm={};
                         api.getScholarshipApply()
@@ -377,30 +351,30 @@
                                 this.applications = res.data.data;
                             })
                             .catch(error => {
-                                Message.error(error)
+                                this.$message.error(error)
                             })
                     })
                     .catch(err=>{
-                        Message.error(err)
+                        this.$message.error(err)
                     })
             },
             deleteApply(){
                 api.deleteScholarshipApply(this.updateForm.id)
                     .then(res=>{
                         console.log(res);
-                        Message.success("删除成功");
+                        this.$message.success("删除成功");
                         this.updateView=false;
                         api.getScholarshipApply()
                             .then(res => {
                                 this.applications = res.data.data;
                             })
                             .catch(error => {
-                                Message.error(error)
+                                this.$message.error(error)
                             });
                         this.updateForm={}
                     })
                     .catch(err=>{
-                        Message.error(err);
+                        this.$message.error(err);
                     })
             }
         },

@@ -43,17 +43,9 @@
 </template>
 
 <script>
-    import {Table, TableColumn, Message, TabPane, Tabs} from 'element-ui'
     import api from "../network/api"
-
     export default {
         name: "AddressBook",
-        components: {
-            "el-table": Table,
-            "el-table-column": TableColumn,
-            "el-tab-pane": TabPane,
-            "el-tabs": Tabs,
-        },
         data() {
             return {
                 addressbook: [
@@ -73,7 +65,7 @@
                     this.addressbook = res.data.data;
                 })
                 .catch(error => {
-                    Message.error(error)
+                    this.$message.error(error)
                 })
         }
     }

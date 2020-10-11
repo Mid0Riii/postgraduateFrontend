@@ -5,8 +5,9 @@ import 'metro4/build/css/metro-all.min.css'
 import 'metro4/build/js/metro.min'
 import 'element-ui/lib/theme-chalk/index.css';
 import 'element-ui/lib/theme-chalk/display.css';
+import element from "../element";
 Vue.config.productionTip = false;
-
+Vue.use(element);
 
 new Vue({
   render: h => h(App),

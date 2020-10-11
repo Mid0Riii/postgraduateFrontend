@@ -11,14 +11,9 @@
 </template>
 
 <script>
-    import {TabPane, Tabs} from 'element-ui'
 
     export default {
         name: "MyInfo",
-        components: {
-            'el-tabs': Tabs,
-            'el-tab-pane': TabPane,
-        },
         data(){
             return{
                 student:{

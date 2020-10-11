@@ -20,17 +20,9 @@
 </template>
 
 <script>
-    import {TabPane, Tabs, Input, Button,Message} from 'element-ui'
     import api from '../network/api'
-
     export default {
         name: "ChangePassword",
-        components: {
-            "el-tab-pane": TabPane,
-            "el-tabs": Tabs,
-            "el-input": Input,
-            "el-button": Button,
-        },
         data() {
             return {
                 "new_password":"",
@@ -40,13 +32,13 @@
         methods:{
             change_password:function(){
                 if(this.new_password!==this.confirm_password){
-                    Message.error("两次输入的密码不一致");
+                    this.$message.error("两次输入的密码不一致");
                     return
                 }
                 api.changePassword({
                     "password":this.confirm_password
                 });
-                Message.success("修改成功，请重新登录");
+                this.$message.success("修改成功，请重新登录");
                 this.$router.push('/login')
 
             }

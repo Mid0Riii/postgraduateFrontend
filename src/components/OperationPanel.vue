@@ -68,15 +68,7 @@
 </template>
 
 <script>
-    import {Dialog, Message, Button, Drawer} from 'element-ui'
-
     export default {
-        components: {
-            // 'el-tooltip': Tooltip,
-            'el-dialog': Dialog,
-            'el-button': Button,
-            'el-drawer': Drawer,
-        },
         name: "operation-panel",
         data() {
             return {
@@ -137,7 +129,7 @@
                 })
             },
             quit: function () {
-                Message.success("成功退出，感谢您的使用");
+                this.$message.success("成功退出，感谢您的使用");
                 this.$store.state.isLogin = false;
                 this.$store.state.token = "";
                 this.$router.push('/login')

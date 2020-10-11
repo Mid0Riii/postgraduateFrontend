@@ -47,6 +47,7 @@
         padding-top: 3rem;
         padding-bottom: 3rem;
         border-radius: 10px;
+        margin: 50px 50px;
     }
 
     .main-contain {

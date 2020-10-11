@@ -26,14 +26,8 @@
 
 <script>
     import api from '../network/api';
-    import {Message,Col,Row} from 'element-ui';
-
     export default {
         name: "login",
-        components:{
-            'el-col':Col,
-            'el-row':Row
-        },
         methods: {
             changeLogin: function () {
                 this.loginView = true
@@ -58,13 +52,13 @@
                     this.$store.state.isLogin = true;
                     this.$store.state.token = data.token;
                     this.$router.push('/');
-                    Message.success(res.data.message);
+                    this.$message.success(res.data.message);
                     api.getStudent().then(res =>{
                         this.$store.state.student = res.data.data[0];
                     })
                 })
                     .catch(error => {
-                        Message.error(error);
+                        this.$message.error(error);
                     });
             }
         },

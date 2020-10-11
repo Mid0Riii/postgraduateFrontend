@@ -36,5 +36,11 @@ export default {
     },
     getStudent(){
         return service.get("basic/info")
+    },
+    getPoverty(){
+        return service.get("basic/poverty")
+    },
+    updatePoverty(id,data){
+        return service.patch("basic/poverty/"+id+'/',data)
     }
 }

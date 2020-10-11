@@ -57,18 +57,9 @@
 </template>
 
 <script>
-    import {Tabs, TabPane, Message, Table, TableColumn, Tag,Divider} from 'element-ui'
     import api from '../network/api'
 
     export default {
-        components: {
-            "el-tabs": Tabs,
-            "el-tab-pane": TabPane,
-            "el-table": Table,
-            "el-table-column": TableColumn,
-            "el-tag": Tag,
-            "el-divider":Divider
-        },
         name: "Announcement",
         data() {
             return {
@@ -120,7 +111,7 @@
                     this.announcements = res.data.data;
                 })
                 .catch(error => {
-                    Message.error(error)
+                    this.$message.error(error)
                 })
         },
         methods: {

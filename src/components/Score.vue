@@ -1,3 +1,4 @@
+
 <template>
     <el-tabs type="border-card">
         <el-tab-pane label="成绩查询">
@@ -43,19 +44,10 @@
 </template>
 
 <script>
-    import {Table, TableColumn, Message, TabPane, Tabs, Select, Option} from 'element-ui'
     import api from "../network/api"
 
     export default {
         name: "Score",
-        components: {
-            "el-table": Table,
-            "el-table-column": TableColumn,
-            "el-tab-pane": TabPane,
-            "el-tabs": Tabs,
-            "el-select": Select,
-            "el-option": Option
-        },
         data() {
             return {
                 scores: [
@@ -105,7 +97,7 @@
                     });
                 })
                 .catch(error => {
-                    Message.error(error)
+                    this.$message.error(error)
                 })
         },
         watch:{
