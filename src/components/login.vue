@@ -51,14 +51,22 @@
                     let data = res.data.data;
                     this.$store.state.isLogin = true;
                     this.$store.state.token = data.token;
-                    this.$router.push('/');
-                    this.$message.success(res.data.message);
+                    this.screenWidth = document.body.clientWidth;
+                    if (this.screenWidth<1080){
+                        this.$router.push('/mobile/index');
+                        this.$notify.success(res.data.message)
+                    }
+                    else{
+                        this.$router.push('/');
+                        this.$message.success(res.data.message);
+
+                    }
                     api.getStudent().then(res =>{
                         this.$store.state.student = res.data.data[0];
                     })
                 })
                     .catch(error => {
-                        this.$message.error(error);
+                        this.$message.error(error.message);
                     });
             }
         },

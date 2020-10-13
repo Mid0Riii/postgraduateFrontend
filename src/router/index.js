@@ -7,14 +7,14 @@ const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
     return originalPush.call(this, location).catch(err => err)
 };
-const routes=[
+const routes = [
     {
-        path:'/',
-        name:'index',
-        components:{
-            default:()=>import(/* webpackChunkName: "index" */'../components/Homepage.vue')
+        path: '/',
+        name: 'index',
+        components: {
+            default: () => import(/* webpackChunkName: "index" */'../components/Homepage.vue')
         },
-        children:[
+        children: [
             {
                 path: '',
                 name: 'cube',
@@ -79,12 +79,77 @@ const routes=[
                 }
             },
         ]
-    },{
+    },
+    {
         path: '/login',
-        name:'login',
-        components:{
-            default:()=>import(/* webpackChunkName: "login" */'../components/login.vue')
+        name: 'login',
+        components: {
+            default: () => import(/* webpackChunkName: "login" */'../components/login.vue')
         },
+    },
+    {
+        path: '/mobile',
+        name: 'mobile',
+        components: {
+            default: () => import(/* webpackChunkName: "mobileindex" */ '../components/mobile/MobileRoot.vue')
+        },
+        children: [
+            {
+                path: 'index',
+                name: 'mindex',
+                components: {
+                    default: () => import(/* webpackChunkName: "mobile" */ '../components/mobile/MobileIndex.vue')
+                }
+            },
+            {
+                path: 'announcement',
+                name: 'mannouncement',
+                components: {
+                    default: () => import(/* webpackChunkName: "mannouncement" */ '../components/mobile/MobileAnnRoot.vue')
+                },
+                children: [
+                    {
+                        path: '',
+                        name: 'mlist',
+                        //TODO 为什么不能懒加载
+                        component: require('@/components/mobile/MobileAnnouncement').default
+                    },
+                    {
+                        path: 'anninfo',
+                        name: 'manninfo',
+                        component: require('@/components/mobile/MobileAnnInfo').default
+                    }
+                ]
+            },
+            {
+                path: 'info',
+                name: 'minfo',
+                components: {
+                    default: () => import(/* webpackChunkName: "info" */ '../components/mobile/MobileInfo.vue')
+                }
+            },
+            {
+                path: 'addressbook',
+                name: 'maddressbook',
+                components: {
+                    default: () => import(/* webpackChunkName: "info" */ '../components/mobile/MobileAddressbook.vue')
+                }
+            },
+            {
+                path: 'score',
+                name: 'mscore',
+                components: {
+                    default: () => import(/* webpackChunkName: "info" */ '../components/mobile/MobileScore.vue')
+                }
+            },
+            {
+                path:'depart',
+                name:'mdepart',
+                components:{
+                    default:()=>import(/* webpackChunkName: "info" */ '../components/mobile/MobileDeparture.vue')
+                }
+            }
+        ]
     }
 ];
 

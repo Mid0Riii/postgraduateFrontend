@@ -13,6 +13,12 @@ const state = {
         stu_name:"",
         stu_college:"",
         stu_major:"",
+    },
+    mobile:{
+        currentPage:"index",
+        currentPageName:"",
+        //当前查看的公告
+        currentAnn:{},
     }
 };
 
