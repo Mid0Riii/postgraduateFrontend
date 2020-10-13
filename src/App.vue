@@ -21,8 +21,7 @@ export default {
 #app {
   /*text-align: center;*/
   /*margin-top: 60px;*/
-  background: #B4C6C6;
-    min-width:1080px;
+  background: #F7F8FA;
   height: 100%;
   width: 100%;
   top: 0;
