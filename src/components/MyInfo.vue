@@ -11,7 +11,6 @@
 </template>
 
 <script>
-
     export default {
         name: "MyInfo",
         data(){
@@ -24,6 +23,7 @@
             }
         },
         created(){
+            console.log(this.$store.state.student);
             this.student = this.$store.state.student
         }
     }

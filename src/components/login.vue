@@ -1,31 +1,61 @@
 <template>
-    <el-row>
-        <el-col
-                :xs="{span:20,offset:2}">
-            <div class="login-contain container" id="login-box"
-                 v-bind:class="{'right-panel-active':!loginView}">
-                <div class="form-container sign-in-container">
-                    <form action="#">
-                        <h1 style="font-size: 2rem">研究生信息平台</h1>
-                        <div class="txtb">
-                            <input type="text" placeholder="学号" v-on:focus="getFocus" v-on:blur="removeFocus"
-                                   v-model="loginusername">
-                        </div>
-                        <div class="txtb">
-                            <input type="password" placeholder="密码" v-on:focus="getFocus" v-on:blur="removeFocus"
-                                   v-model="loginpassword">
-                        </div>
-                        <button style="margin-top: 30px" v-on:click="login">登录</button>
-                    </form>
+    <div class="container-fluid container login-contain" id="login-box"
+         v-bind:class="{'right-panel-active':!loginView}">
+        <div class="form-container sign-up-container">
+            <form>
+                <h1>注册</h1>
+                <div class="txtb">
+                    <input type="text" placeholder="学号" v-on:focus="getFocus" v-on:blur="removeFocus"
+                           v-model="signupusername">
+                </div>
+                <div class="txtb">
+                    <input type="password" placeholder="密码" v-on:focus="getFocus" v-on:blur="removeFocus"
+                           v-model="signuppassword">
+                </div>
+                <div class="txtb">
+                    <input type="password" placeholder="确认密码" v-on:focus="getFocus" v-on:blur="removeFocus">
+                </div>
+                <button>注册</button>
+            </form>
+        </div>
+        <div class="form-container sign-in-container">
+            <form action="#">
+                <h1>登录</h1>
+                <div class="txtb">
+                    <input type="text" placeholder="学号" v-on:focus="getFocus" v-on:blur="removeFocus"
+                           v-model="loginusername">
+                </div>
+                <div class="txtb">
+                    <input type="password" placeholder="密码" v-on:focus="getFocus" v-on:blur="removeFocus"
+                           v-model="loginpassword">
+                </div>
+                <a href="#">忘记密码？</a>
+                <button v-on:click="login">登录</button>
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-left">
+                    <h1>已有账号？</h1>
+                    <p>请使用您的账号进行登录</p>
+                    <button class="ghost" id="signIn" v-on:click="changeLogin">登录</button>
+                </div>
+                <div class="overlay-panel overlay-right">
+                    <h1>没有账号?</h1>
+                    <p>立即注册加入我们，和我们一起开始旅程吧</p>
+                    <button class="ghost" id="signUp" v-on:click="changeSignup">注册</button>
                 </div>
             </div>
-        </el-col>
-    </el-row>
+
+        </div>
+    </div>
 
 </template>
 
 <script>
     import api from '../network/api';
+    import {Message} from 'element-ui';
     export default {
         name: "login",
         methods: {
@@ -44,29 +74,33 @@
                 }
             },
             login: function () {
+                console.log("login")
                 api.login({
                     "username": this.loginusername,
                     "password": this.loginpassword,
-                }).then(res => {
-                    let data = res.data.data;
-                    this.$store.state.isLogin = true;
-                    this.$store.state.token = data.token;
-                    this.screenWidth = document.body.clientWidth;
-                    if (this.screenWidth<1080){
-                        this.$router.push('/mobile/index');
-                        this.$notify.success(res.data.message)
-                    }
-                    else{
-                        this.$router.push('/');
-                        this.$message.success(res.data.message);
-
-                    }
-                    api.getStudent().then(res =>{
-                        this.$store.state.student = res.data.data[0];
-                    })
                 })
+                    .then(res => {
+                        console.log(res);
+                        this.$store.state.isLogin = true;
+                        this.$store.state.token = res.data.data.token;
+                        this.$router.push('/');
+                        Message.success(res.data.message);
+                        console.log(this.$store.state.token);
+                        this.screenWidth = document.body.clientWidth;
+                        if (this.screenWidth<1080){
+                            this.$router.push('/mobile/index');
+                            this.$notify.success(res.data.message)
+                        }
+                        else{
+                            this.$router.push('/');
+                            this.$message.success(res.data.message);
+                        }
+                        api.getStudent().then(res =>{
+                            this.$store.state.student = res.data.data[0];
+                        })
+                    })
                     .catch(error => {
-                        this.$message.error(error.message);
+                        Message.error(error.message + ":" + error.data.detail);
                     });
             }
         },
@@ -84,20 +118,18 @@
 
 <style scoped>
     .login-contain {
+        min-width:1080px;
         margin-top: 15%;
     }
-
     .login-form {
         width: 350px;
         height: auto;
         /*top: 50%;*/
         /*margin-top: -160px;*/
     }
-
     * {
         box-sizing: border-box;
     }
-
     body {
         font-family: 'Montserrat', sans-serif;
         background-image: linear-gradient(120deg, #3498db, #8e44ad);;
@@ -108,50 +140,47 @@
         height: 100vh;
         margin: -20px 0 50px;
     }
-
     h1 {
         font-weight: bold;
+        margin: 0;
     }
-
     p {
         font-size: 14px;
         line-height: 20px;
         letter-spacing: .5px;
         margin: 20px 0 30px;
     }
-
     span {
         font-size: 12px;
     }
-
     a {
         color: #333;
         font-size: 14px;
         text-decoration: none;
         margin: 15px 0;
     }
-
     .container {
         background: #fff;
         border-radius: 10px;
         box-shadow: 0 14px 28px rgba(0, 0, 0, .25), 0 10px 10px rgba(0, 0, 0, .22);
         position: relative;
         overflow: hidden;
-        width: 375px;
+        width: 768px;
         max-width: 100%;
-        min-height: 360px;
+        min-height: 480px;
     }
-
     .form-container form {
         background: #fff;
         display: flex;
         flex-direction: column;
-        padding: 0 25px;
+        padding: 0 50px;
         height: 100%;
         justify-content: center;
         text-align: center;
     }
-
+    .social-container {
+        margin: 20px 0;
+    }
     .social-container a {
         border: 1px solid #ddd;
         border-radius: 50%;
@@ -162,18 +191,14 @@
         height: 40px;
         width: 40px;
     }
-
     .social-container a:hover {
         background-color: #eee;
-
     }
-
     .txtb {
-        margin-top: 2rem;
         border-bottom: 2px solid #adadad;
         position: relative;
+        margin: 10px 0;
     }
-
     .txtb input {
         font-size: 15px;
         color: #333;
@@ -184,7 +209,6 @@
         padding: 0 3px;
         height: 35px;
     }
-
     .txtb span::before {
         content: attr(data-placeholder);
         position: absolute;
@@ -194,7 +218,6 @@
         transform: translateY(-50%);
         transition: .5s;
     }
-
     .txtb span::after {
         content: '';
         position: absolute;
@@ -205,15 +228,12 @@
         background-image: linear-gradient(120deg, #3498db, #8e44ad);
         transition: .5s;
     }
-
     .focus + span::before {
         top: -5px;
     }
-
     .focus + span::after {
         width: 100%;
     }
-
     button {
         border-radius: 20px;
         border: 1px solid #ff4b2b;
@@ -227,27 +247,22 @@
         transition: transform 80ms ease-in;
         cursor: pointer;
     }
-
     button:active {
         transform: scale(.95);
     }
-
     button:focus {
         outline: none;
     }
-
     button.ghost {
         background: transparent;
         border-color: #fff;
     }
-
     .form-container {
         position: absolute;
         top: 0;
         height: 100%;
         transition: all .6s ease-in-out;
     }
-
     .form-container button {
         background: linear-gradient(120deg, #3498db, #8e44ad);
         border: none;
@@ -255,49 +270,86 @@
         color: #fff;
         transition: .5s;
     }
-
     .form-container button:hover {
         background-position: right;
     }
-
     .sign-in-container {
         left: 0;
-        width: 100%;
+        width: 50%;
         z-index: 2;
     }
-
     .sign-in-container form a {
         position: relative;
         left: 100px;
     }
+    .sign-up-container {
+        left: 0;
+        width: 50%;
+        z-index: 1;
+        opacity: 0;
+    }
     .sign-up-container button {
         margin-top: 20px;
     }
-
+    .overlay-container {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 50%;
+        height: 100%;
+        overflow: hidden;
+        transition: transform .6s ease-in-out;
+        z-index: 100;
+    }
+    .overlay {
+        background-image: linear-gradient(120deg, #3498db, #8e44ad);
+        color: #fff;
+        position: relative;
+        left: -100%;
+        height: 100%;
+        width: 200%;
+        transform: translateY(0);
+        transition: transform .6s ease-in-out;
+    }
+    .overlay-panel {
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0 40px;
+        height: 100%;
+        width: 50%;
+        text-align: center;
+        transform: translateY(0);
+        transition: transform .6s ease-in-out;
+    }
+    .overlay-right {
+        right: 0;
+        transform: translateY(0);
+    }
+    .overlay-left {
+        transform: translateY(-20%);
+    }
     .container.right-panel-active .sign-in-container {
         transform: translateY(100%);
     }
-
     .container.container.right-panel-active .overlay-container {
         transform: translateX(-100%);
     }
-
     .container.right-panel-active .sign-up-container {
         transform: translateX(100%);
         opacity: 1;
         z-index: 5;
     }
-
     .container.container.right-panel-active .overlay {
         transform: translateX(50%);
     }
-
     .container.container.right-panel-active .overlay-left {
         transform: translateY(0);
     }
-
     .container.container.right-panel-active .overlay-right {
         transform: translateY(20%);
     }
-
 </style>

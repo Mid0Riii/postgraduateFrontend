@@ -1,11 +1,11 @@
 <template>
     <div class="panel-body">
         <div class="tiles-group tiles-grid size-2 operation-panel">
-            <div data-role="tile" style="background-color: #016974" data-size="wide" v-on:click="push_announcement">
+            <div data-role="tile" style="background-color: #1989FA" data-size="wide" v-on:click="push_announcement">
                 <span class="mif-notification icon"></span>
                 <span class="branding-bar">通知中心</span>
             </div>
-            <div data-role="tile" style="background-color: #016974" v-on:click="push_addressbook">
+            <div data-role="tile" style="background-color: #5CB87A" v-on:click="push_addressbook">
                 <span class="mif-contacts-dialer icon"></span>
                 <span class="branding-bar">通讯录</span>
             </div>
@@ -33,11 +33,11 @@
                 <span class="mif-airplane icon"></span>
                 <span class="branding-bar">离/返校登记</span>
             </div>
-            <div data-role="tile" style="background-color: #65BCB6" v-on:click="push_scholarship">
+            <div data-role="tile" style="background-color: #1989FA" v-on:click="push_scholarship">
                 <span class="mif-assignment icon"></span>
                 <span class="branding-bar">奖学金申请</span>
             </div>
-            <div data-role="tile" style="background-color: #016974" v-on:click="push_poverty">
+            <div data-role="tile" style="background-color: #5CB87A" v-on:click="push_poverty">
                 <span class="mif-pencil icon"></span>
                 <span class="branding-bar">贫困生登记</span>
             </div>

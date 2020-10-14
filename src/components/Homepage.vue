@@ -41,6 +41,7 @@
 
 <style scoped>
     .homepage {
+        min-width:1080px;
         background-color: #FFFFFF;
         padding-left: 100px;
         padding-right: 100px;
