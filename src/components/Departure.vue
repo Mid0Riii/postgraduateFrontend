@@ -110,10 +110,11 @@ export default {
         "depart_semster": '',
       })
           .then(res => {
+            Message.success("登记成功");
             console.log(res);
           })
           .catch(error => {
-            Message.error(error.message + ":" + error.data.detail);
+            Message.error(error.message + ":" + error.data.non_field_errors);
             console.log(error);
           });
     },

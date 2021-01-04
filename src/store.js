@@ -18,7 +18,7 @@ const state = {
         currentPage:"index",
         currentPageName:"",
         //当前查看的公告
-        currentAnn:{},
+        currentAnn:{}
     }
 };
 
